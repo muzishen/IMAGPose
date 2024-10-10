@@ -5,10 +5,13 @@ Implementation code：[IMAGPose: A Unified Conditional Framework for Pose-Guided
 ----
 ### Since I have been a little busy recently, it is expected to open source before November, thank you!
 
+--- 
+![demo](assets/demo.png)
 
-![framework](assets/demo.png)
+---
+![motivation](assets/motivation.png)
 
-
+---
 ![framework](assets/framework.png)
 
 
