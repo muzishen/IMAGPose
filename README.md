@@ -9,7 +9,7 @@ Implementation code：[IMAGPose: A Unified Conditional Framework for Pose-Guided
 ![framework](assets/demo.png)
 
 
-![framework](assets/net.png)
+![framework](assets/framework.png)
 
 
 ## Contact
