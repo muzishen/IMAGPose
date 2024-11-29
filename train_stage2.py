@@ -25,7 +25,7 @@ from diffusers.utils.import_utils import is_xformers_available
 from einops import rearrange
 from omegaconf import OmegaConf
 from tqdm.auto import tqdm
-from prepare_dataset.pose_dataset import HumanPoseDataset
+from pose_dataset import HumanPoseDataset
 # from models.mutual_self_attention import ReferenceAttentionControl
 from models.pose_guider import PoseGuider
 # from models.unet_2d_condition import UNet2DConditionModel
