@@ -101,20 +101,7 @@ class Pose2ImagePipeline(DiffusionPipeline):
                 return torch.device(module._hf_hook.execution_device)
         return self.device
 
-    # def decode_latents(self, latents):
-    #     video_length = latents.shape[2]
-    #     latents = 1 / 0.18215 * latents
-    #     latents = rearrange(latents, "b c f h w -> (b f) c h w")
-    #     # video = self.vae.decode(latents).sample
-    #     video = []
-    #     for frame_idx in tqdm(range(latents.shape[0])):
-    #         video.append(self.vae.decode(latents[frame_idx : frame_idx + 1]).sample)
-    #     video = torch.cat(video)
-    #     video = rearrange(video, "(b f) c h w -> b c f h w", f=video_length)
-    #     video = (video / 2 + 0.5).clamp(0, 1)
-    #     # we always cast to float32 as this does not cause significant overhead and is compatible with bfloa16
-    #     video = video.cpu().float().numpy()
-    #     return video
+
     def decode_latents(self, latents):
 
         latents = 1 / self.vae.config.scaling_factor * latents
@@ -278,7 +265,7 @@ class Pose2ImagePipeline(DiffusionPipeline):
 
         patch_ref_latents = self.patch_encoder(ref_image_latents)
         uncond_patch_ref_latents = torch.zeros_like(patch_ref_latents)
-        # 这个cfg 可能有问题
+
         if do_classifier_free_guidance:
             patch_ref_latents = torch.cat(
                 [uncond_patch_ref_latents, patch_ref_latents], dim=0
@@ -317,9 +304,6 @@ class Pose2ImagePipeline(DiffusionPipeline):
             for i, t in enumerate(timesteps):
                 # 3.1 expand the latents if we are doing classifier free guidance
 
-                # latent_model_input = (
-                #     torch.cat([latents] * 2) if do_classifier_free_guidance else latents
-                # )
 
                 latent_model_input = torch.cat([latents, flag_label_tensor, image_mask_latents],  dim=1)
                 latent_model_input = (
