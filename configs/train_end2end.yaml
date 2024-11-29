@@ -1,0 +1,60 @@
+data:
+  train_bs: 1
+  train_width: 512
+  train_height: 512
+  meta_paths:
+    - './data/fashion.json'
+#    - './data/market1501.json'
+  sample_rate: 1
+  n_sample_frames: 100
+
+solver:
+  gradient_accumulation_steps: 1
+  mixed_precision: 'fp16'
+  enable_xformers_memory_efficient_attention: True
+  gradient_checkpointing: True
+  max_train_steps: 10000000000
+  max_grad_norm: 1.0
+  # lr
+  learning_rate: 1e-6
+  scale_lr: False
+  lr_warmup_steps: 1
+  lr_scheduler: 'constant'
+
+  # optimizer
+  use_8bit_adam: false
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay:  1.0e-2
+  adam_epsilon: 1.0e-8
+
+val:
+  validation_steps: 20
+
+
+noise_scheduler_kwargs:
+  num_train_timesteps: 1000
+  beta_start:          0.00085
+  beta_end:            0.012
+  beta_schedule:       "linear"
+  steps_offset:        1
+  clip_sample:         false
+
+base_model_path: './weights/stable-diffusion-v1-5'
+vae_model_path: './weights/sd-vae-ft-mse/'
+image_encoder_path: './weights/dinov2-base'
+mm_path: './all_logs/stage2/stage2_log/motion_module-200001.pth' # ckpt -> pth
+
+weight_dtype: 'fp16'  # [fp16, fp32]
+uncond_ratio: 0.1
+noise_offset: 0.05
+snr_gamma: 5.0
+enable_zero_snr: True
+stage1_ckpt_dir: './all_logs/stage1/stage1_log'
+stage1_ckpt_step: 50001
+
+seed: 12580
+# resume_from_checkpoint: ''
+checkpointing_steps: 10000
+exp_name: 'stage3_end2end_log'
+output_dir: './all_logs/stage3_end2end'

@@ -1,0 +1,8 @@
+pretrained_base_model_path: './weights/stable-diffusion-v1-5'
+pretrained_vae_path: './weights/sd-vae-ft-mse/'
+image_encoder_path: './weights/dinov2-base'
+motion_module_path: "./weights/Moore-AnimateAnyone/pretrained_weights/motion_module.pth"
+
+inference_config: "./configs/inference.yaml"
+weight_dtype: 'fp16'
+
