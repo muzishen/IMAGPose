@@ -1,9 +1,7 @@
 # IMAGPose
 Implementation code：**[IMAGPose: A Unified Conditional Framework for Pose-Guided Person Generation](https://openreview.net/pdf?id=6IyYa4gETN)**, accepted at Annual Conference on Neural Information Processing Systems (NeurIPS) 2024.
 
-微信讨论群：
 
-![Group](assets/wx_group1.jpg)
 
 
 ## Abstract
