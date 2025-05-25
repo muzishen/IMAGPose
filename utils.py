@@ -1,12 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# **********************************
-# Author: kuantian                 #
-# Email:  kuantian@tencent.com     #
-# **********************************
-"""
-module docstring.
-"""
 
 # standard library
 import random
