@@ -2,7 +2,7 @@ unet_additional_kwargs:
   use_inflated_groupnorm: true
   unet_use_cross_frame_attention: false
   unet_use_temporal_attention: false
-  use_motion_module: false
+  use_motion_module: true
   motion_module_resolutions:
   - 1
   - 2
