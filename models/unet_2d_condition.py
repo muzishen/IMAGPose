@@ -630,19 +630,12 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
             prev_output_channel = output_channel
 
         # out
-        if norm_num_groups is not None:
-            self.conv_norm_out = nn.GroupNorm(
-                num_channels=block_out_channels[0],
-                num_groups=norm_num_groups,
-                eps=norm_eps,
-            )
-
-            self.conv_act = get_activation(act_fn)
-
-        else:
-            self.conv_norm_out = None
-            self.conv_act = None
-        self.conv_norm_out = None
+        self.conv_norm_out = nn.GroupNorm(
+            num_channels=block_out_channels[0],
+            num_groups=norm_num_groups,
+            eps=norm_eps,
+        )
+        self.conv_act = nn.SiLU()
 
         conv_out_padding = (conv_out_kernel - 1) // 2
         self.conv_out = nn.Conv2d(
@@ -1297,9 +1290,8 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
                 )
 
         # 6. post-process
-        if self.conv_norm_out:
-            sample = self.conv_norm_out(sample)
-            sample = self.conv_act(sample)
+        sample = self.conv_norm_out(sample)
+        sample = self.conv_act(sample)
         sample = self.conv_out(sample)
 
         if USE_PEFT_BACKEND:

@@ -85,10 +85,9 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
         time_embed_dim = block_out_channels[0] * 4
 
         # input
-        self.conv3d_in = InflatedConv3d(
+        self.conv_in = InflatedConv3d(
             in_channels, block_out_channels[0], kernel_size=3, padding=(1, 1)
         )
-        self.conv2d_in = nn.Conv2d(in_channels, block_out_channels[0], kernel_size=3, padding=1)
         # time
         self.time_proj = Timesteps(block_out_channels[0], flip_sin_to_cos, freq_shift)
         timestep_input_dim = block_out_channels[0]
@@ -481,10 +480,7 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
             emb = emb + class_emb
 
         # pre-process
-        if sample.dim() == 4:
-            sample = self.conv2d_in(sample)
-        else:
-            sample = self.conv3d_in(sample)
+        sample = self.conv_in(sample)
 
         if pose_cond_fea is not None:
             sample = sample + pose_cond_fea
